@@ -29,7 +29,7 @@ export function handleAddUserToRoom(ws: WebSocket, data: AddUserToRoomData) {
 
   games.set(gameId, game);
 
-  room.players.forEach((pIndex, idx) => {
+  room.players.forEach((pIndex) => {
     const playerWs = clients.get(pIndex);
     if (playerWs) {
       sendMessage(
@@ -43,7 +43,6 @@ export function handleAddUserToRoom(ws: WebSocket, data: AddUserToRoomData) {
     }
   });
 
-  // Remove room from available rooms
   rooms.delete(data.indexRoom);
   updateRooms();
 }
