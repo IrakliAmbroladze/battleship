@@ -1,5 +1,5 @@
 export type WSMessage = {
   type: string;
-  data: any;
+  data: unknown;
   id: number;
 };

@@ -1,11 +1,12 @@
 import { clients } from "../db/clients";
 import { players } from "../db/players";
+import type { RegData } from "../types/MessageData";
 import { generateId } from "../utils/generateId";
 import { sendMessage } from "../utils/sendMessage";
 import { updateRooms } from "../utils/updateRooms";
 import { updateWinners } from "../utils/updateWinners";
 
-export function handleRegistration(ws: WebSocket, data: any) {
+export function handleRegistration(ws: WebSocket, data: RegData) {
   console.log("Registration data:", data);
   const { name, password } = data;
 

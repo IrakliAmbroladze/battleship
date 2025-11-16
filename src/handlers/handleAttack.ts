@@ -1,11 +1,12 @@
 import { games } from "../db/games";
 import { players } from "../db/players";
+import type { AttackData } from "../types/MessageData";
 import { checkAttack } from "../utils/checkAttack";
 import { isGameOver } from "../utils/isGameOver";
 import { sendToPlayersInGame } from "../utils/sendToPlayersInGame";
 import { updateWinners } from "../utils/updateWinners";
 
-export function handleAttack(ws: WebSocket, data: any) {
+export function handleAttack(ws: WebSocket, data: AttackData) {
   const { gameId, x, y, indexPlayer } = data;
   const game = games.get(gameId);
 

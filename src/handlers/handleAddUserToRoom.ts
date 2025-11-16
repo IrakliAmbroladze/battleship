@@ -2,12 +2,13 @@ import { clients } from "../db/clients";
 import { games } from "../db/games";
 import { rooms } from "../db/rooms";
 import type { Game } from "../types/Game";
+import type { AddUserToRoomData } from "../types/MessageData";
 import { generateId } from "../utils/generateId";
 import { getPlayerIndexByWs } from "../utils/getPlayerIndexByWs";
 import { sendMessage } from "../utils/sendMessage";
 import { updateRooms } from "../utils/updateRooms";
 
-export function handleAddUserToRoom(ws: WebSocket, data: any) {
+export function handleAddUserToRoom(ws: WebSocket, data: AddUserToRoomData) {
   const playerIndex = getPlayerIndexByWs(ws);
   if (!playerIndex) return;
 

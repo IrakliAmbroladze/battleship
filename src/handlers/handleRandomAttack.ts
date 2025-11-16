@@ -1,7 +1,8 @@
 import { games } from "../db/games";
+import type { RandomAttackData } from "../types/MessageData";
 import { handleAttack } from "./handleAttack";
 
-export function handleRandomAttack(ws: WebSocket, data: any) {
+export function handleRandomAttack(ws: WebSocket, data: RandomAttackData) {
   const { gameId, indexPlayer } = data;
   const game = games.get(gameId);
 
