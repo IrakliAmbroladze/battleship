@@ -1,5 +1,4 @@
 import { Ship } from "../types/Ship";
-import { sendToPlayersInGame } from "./sendToPlayersInGame";
 
 export function checkAttack(
   board: string[][],
@@ -21,7 +20,7 @@ export function checkAttack(
     });
 
     if (hitShip) {
-      const { x: sx, y: sy } = hitShip;
+      const { x: sx, y: sy } = hitShip.position;
       let allHit = true;
       for (let i = 0; i < hitShip.length; i++) {
         const posX = hitShip.direction ? sx + i : sx;
@@ -33,7 +32,7 @@ export function checkAttack(
       }
 
       if (allHit) {
-        const { x: sx, y: sy } = hitShip;
+        const { x: sx, y: sy } = hitShip.position;
         for (let i = -1; i <= hitShip.length; i++) {
           for (let j = -1; j <= 1; j++) {
             const posX = hitShip.direction ? sx + i : sx + j;
@@ -41,13 +40,6 @@ export function checkAttack(
             if (posX >= 0 && posX < 10 && posY >= 0 && posY < 10) {
               if (board[posY][posX] === "") {
                 board[posY][posX] = "miss";
-                setTimeout(() => {
-                  sendToPlayersInGame(hitShip.toString(), "attack", {
-                    position: { x: posX, y: posY },
-                    currentPlayer: "",
-                    status: "miss",
-                  });
-                }, 100);
               }
             }
           }
