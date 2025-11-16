@@ -2,12 +2,13 @@ import { clients } from "../db/clients";
 import { games } from "../db/games";
 import { rooms } from "../db/rooms";
 import type { Game } from "../types/Game";
+import type { AddUserToRoomData } from "../types/MessageData";
 import { generateId } from "../utils/generateId";
 import { getPlayerIndexByWs } from "../utils/getPlayerIndexByWs";
 import { sendMessage } from "../utils/sendMessage";
 import { updateRooms } from "../utils/updateRooms";
 
-export function handleAddUserToRoom(ws: WebSocket, data: any) {
+export function handleAddUserToRoom(ws: WebSocket, data: AddUserToRoomData) {
   const playerIndex = getPlayerIndexByWs(ws);
   if (!playerIndex) return;
 
@@ -28,7 +29,7 @@ export function handleAddUserToRoom(ws: WebSocket, data: any) {
 
   games.set(gameId, game);
 
-  room.players.forEach((pIndex, idx) => {
+  room.players.forEach((pIndex) => {
     const playerWs = clients.get(pIndex);
     if (playerWs) {
       sendMessage(
@@ -42,7 +43,6 @@ export function handleAddUserToRoom(ws: WebSocket, data: any) {
     }
   });
 
-  // Remove room from available rooms
   rooms.delete(data.indexRoom);
   updateRooms();
 }
